@@ -1,0 +1,9 @@
+{
+  "name": "eternalengine-openapi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tooling devDependencies for validating the EternalEngine public OpenAPI spec (no published package here).",
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

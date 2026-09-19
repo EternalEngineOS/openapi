@@ -1,0 +1,40 @@
+name: Validate spec
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install devDependencies (js-yaml, for the consistency check below)
+        run: npm install
+
+      - name: Lint openapi.public.yaml (Redocly CLI)
+        run: npx --yes @redocly/cli lint openapi.public.yaml
+
+      - name: Lint openapi.public.json (Redocly CLI)
+        run: npx --yes @redocly/cli lint openapi.public.json
+
+      - name: Confirm JSON and YAML describe the same document
+        run: |
+          node -e "
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            const j = JSON.parse(fs.readFileSync('openapi.public.json', 'utf-8'));
+            const y = yaml.load(fs.readFileSync('openapi.public.yaml', 'utf-8'));
+            if (JSON.stringify(j) !== JSON.stringify(y)) {
+              console.error('openapi.public.json and openapi.public.yaml describe different documents');
+              process.exit(1);
+            }
+            console.log('openapi.public.json and openapi.public.yaml match');
+          "

@@ -1,0 +1,12 @@
+extends:
+  - recommended
+
+rules:
+  # KNOWN, PRE-EXISTING findings in the source spec (services/ee-postframe/openapi.yaml,
+  # services/ee-paygate/openapi.yaml) — see README.md "Known lint findings". This repository
+  # publishes a read-only MIRROR of the generated spec; changing these would change what the
+  # spec says the API does, which is out of scope here (owned by the source services' generator).
+  # Downgraded to warn so CI reports them without blocking on findings we cannot fix in this repo.
+  struct: warn
+  info-license-strict: warn
+  operation-4xx-response: warn
