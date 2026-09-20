@@ -1,75 +1,83 @@
 openapi: 3.1.0
 info:
   title: EternalEngine Public API
-  description: 'Read-only surface of the EternalEngine platform, covering every service whose data a tenant''s own API key can authenticate. Generated from services/ee-postframe/openapi.yaml and services/ee-paygate/openapi.yaml by scripts/growth/gen-public-openapi.mjs — do not hand-edit this file, edit the source specs and regenerate.
+  description: >-
+    Read-only surface of the EternalEngine platform, covering every service whose data a tenant's
+    own API key can authenticate. Generated from services/ee-postframe/openapi.yaml and
+    services/ee-paygate/openapi.yaml by scripts/growth/gen-public-openapi.mjs — do not hand-edit
+    this file, edit the source specs and regenerate.
 
 
     ## Authentication
 
-    Every operation below requires a Bearer API key from the service that owns it: PostFrame keys are `pf_live_*`/`pf_test_*`, PayGate keys are `pg_live_*`/`pg_test_*`. Mint one from the EternalEngine app under Developers → API Keys for the relevant app.
+    Every operation below requires a Bearer API key from the service that owns it: PostFrame keys
+    are `pf_live_*`/`pf_test_*`, PayGate keys are `pg_live_*`/`pg_test_*`. Mint one from the
+    EternalEngine app under Developers → API Keys for the relevant app.
 
 
     ## This is a READ-ONLY surface
 
-    Only GET operations are published here. Every write operation (POST/PUT/PATCH/DELETE) on the underlying service is deliberately excluded — this spec and the MCP server generated from it can only ever read your data.'
-  version: 1.0.0
-  x-generated-at: '2026-09-15T12:08:46.573Z'
+    Only GET operations are published here. Every write operation (POST/PUT/PATCH/DELETE) on the
+    underlying service is deliberately excluded — this spec and the MCP server generated from it can
+    only ever read your data.
+  version: 1.1.0
+  x-generated-at: '2026-09-19T17:51:53.576Z'
   contact:
     name: EternalEngine Support
     email: support@eternalengineos.io
   license:
     name: Proprietary
 servers:
-- url: https://app.eternalengineos.io/api/v1
-  description: EternalEngine public API
+  - url: https://app.eternalengineos.io/api/v1
+    description: EternalEngine public API
 tags:
-- name: Emails
-  description: Send, list, and manage transactional emails
-- name: Templates
-  description: Email template CRUD and rendering
-- name: Contacts
-  description: Contact management and custom fields
-- name: Audiences
-  description: Audience lists for broadcast sends
-- name: Broadcasts
-  description: Bulk email campaigns to audiences
-- name: Domains
-  description: Sending domain management and DNS verification
-- name: Providers
-  description: Email provider configuration (SES, SMTP, etc.)
-- name: API Keys
-  description: API key management
-- name: Webhooks
-  description: Webhook endpoint management
-- name: Suppressions
-  description: Suppression list management (bounces, complaints, manual)
-- name: Analytics
-  description: Delivery metrics and statistics
-- name: Usage
-  description: Email quota and usage tracking
-- name: Settings
-  description: Tenant settings and onboarding
-- name: Billing
-  description: Subscription management and Stripe integration
-- name: Status
-  description: Public service health
-- name: Transactions
-  description: Charge, list, and inspect payment transactions
-- name: Disputes
-  description: Chargeback / dispute management
-- name: Routing
-  description: Transaction routing rules across providers
-- name: Connect
-  description: Stripe Connect account, catalog, balance, and payouts
-- name: Customers
-  description: Customer directory derived from transaction history
-- name: Me
-  description: The authenticated tenant's own platform subscription
+  - name: Emails
+    description: Send, list, and manage transactional emails
+  - name: Templates
+    description: Email template CRUD and rendering
+  - name: Contacts
+    description: Contact management and custom fields
+  - name: Audiences
+    description: Audience lists for broadcast sends
+  - name: Broadcasts
+    description: Bulk email campaigns to audiences
+  - name: Domains
+    description: Sending domain management and DNS verification
+  - name: Providers
+    description: Email provider configuration (SES, SMTP, etc.)
+  - name: API Keys
+    description: API key management
+  - name: Webhooks
+    description: Webhook endpoint management
+  - name: Suppressions
+    description: Suppression list management (bounces, complaints, manual)
+  - name: Analytics
+    description: Delivery metrics and statistics
+  - name: Usage
+    description: Email quota and usage tracking
+  - name: Settings
+    description: Tenant settings and onboarding
+  - name: Billing
+    description: Subscription management and Stripe integration
+  - name: Status
+    description: Public service health
+  - name: Transactions
+    description: Charge, list, and inspect payment transactions
+  - name: Disputes
+    description: Chargeback / dispute management
+  - name: Routing
+    description: Transaction routing rules across providers
+  - name: Connect
+    description: Stripe Connect account, catalog, balance, and payouts
+  - name: Customers
+    description: Customer directory derived from transaction history
+  - name: Me
+    description: The authenticated tenant's own platform subscription
 paths:
   /paygate/api-keys:
     get:
       tags:
-      - API Keys
+        - API Keys
       summary: List API keys for the tenant
       operationId: listApiKeys
       responses:
@@ -95,8 +103,8 @@ paths:
                         mode:
                           type: string
                           enum:
-                          - test
-                          - live
+                            - test
+                            - live
                         permissions:
                           type: array
                           items:
@@ -115,17 +123,19 @@ paths:
                           type: string
                           format: date-time
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/account:
     get:
       tags:
-      - Connect
+        - Connect
       summary: Get the tenant's Stripe Connect account status
       operationId: getConnectAccount
       responses:
@@ -175,17 +185,19 @@ paths:
                         type: string
                         format: date-time
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/balance:
     get:
       tags:
-      - Connect
+        - Connect
       summary: Get the connected account's Stripe balance
       operationId: getConnectBalance
       responses:
@@ -211,27 +223,29 @@ paths:
         '503':
           description: Payment processing not configured
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/checkout/sessions:
     get:
       tags:
-      - Connect
+        - Connect
       summary: List recent Checkout sessions
       operationId: listCheckoutSessions
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
       responses:
         '200':
           description: Sessions + conversion stats
@@ -256,17 +270,19 @@ paths:
                       conversion_rate:
                         type: number
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/coupons:
     get:
       tags:
-      - Connect
+        - Connect
       summary: List Stripe coupons on the connected account
       operationId: listCoupons
       responses:
@@ -282,33 +298,35 @@ paths:
                     items:
                       type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/payouts:
     get:
       tags:
-      - Connect
+        - Connect
       summary: List Stripe Connect payouts
       operationId: listPayouts
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          minimum: 0
-          default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         '200':
           description: Payouts
@@ -317,17 +335,19 @@ paths:
               schema:
                 type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/products:
     get:
       tags:
-      - Connect
+        - Connect
       summary: List Stripe products/plans on the connected account
       operationId: listProducts
       responses:
@@ -343,28 +363,30 @@ paths:
                     items:
                       type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/connect/subscriptions:
     get:
       tags:
-      - Connect
+        - Connect
       summary: List Stripe subscriptions on the connected account
       operationId: listSubscriptions
       parameters:
-      - name: status
-        in: query
-        schema:
-          type: string
-      - name: search
-        in: query
-        schema:
-          type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Subscriptions
@@ -378,53 +400,55 @@ paths:
                     items:
                       type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/customers:
     get:
       tags:
-      - Customers
+        - Customers
       summary: List customers (aggregated from transaction history)
       operationId: listCustomers
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          minimum: 0
-          default: 0
-      - name: search
-        in: query
-        schema:
-          type: string
-      - name: sort_by
-        in: query
-        schema:
-          type: string
-          enum:
-          - total_spent
-          - name
-          - count
-          - last_activity
-      - name: sort_dir
-        in: query
-        schema:
-          type: string
-          enum:
-          - asc
-          - desc
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            enum:
+              - total_spent
+              - name
+              - count
+              - last_activity
+        - name: sort_dir
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         '200':
           description: Customers
@@ -470,50 +494,54 @@ paths:
                   offset:
                     type: integer
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/customers/{email}:
     get:
       tags:
-      - Customers
+        - Customers
       summary: Get a customer's transaction history
       operationId: getCustomerByEmail
       parameters:
-      - name: email
-        in: path
-        required: true
-        schema:
-          type: string
-          format: email
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            format: email
       responses:
         '200':
           description: Customer detail
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/me/invoices/{invoiceId}/pdf:
     get:
       tags:
-      - Me
+        - Me
       summary: Download a branded PDF of the tenant's own platform subscription invoice
       operationId: getSubscriptionInvoicePdf
       parameters:
-      - name: invoiceId
-        in: path
-        required: true
-        schema:
-          type: string
-          pattern: ^in_[A-Za-z0-9]+$
+        - name: invoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^in_[A-Za-z0-9]+$
       responses:
         '200':
           description: PDF document
@@ -529,17 +557,19 @@ paths:
         '503':
           description: Stripe not configured
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/me/volume:
     get:
       tags:
-      - Me
+        - Me
       summary: Get the tenant's month-to-date processing volume
       operationId: getMonthToDateVolume
       responses:
@@ -555,17 +585,19 @@ paths:
                   data:
                     type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/settings:
     get:
       tags:
-      - Settings
+        - Settings
       summary: Get merchant settings and fraud rules
       operationId: getMerchantSettings
       responses:
@@ -576,17 +608,19 @@ paths:
               schema:
                 type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/status:
     get:
       tags:
-      - Status
+        - Status
       summary: Service health (public, no auth)
       operationId: getStatus
       security: []
@@ -613,60 +647,60 @@ paths:
   /paygate/transactions:
     get:
       tags:
-      - Transactions
+        - Transactions
       summary: List transactions
       operationId: listTransactions
       parameters:
-      - name: status
-        in: query
-        schema:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-          - refunded
-          - disputed
-      - name: type
-        in: query
-        schema:
-          type: string
-          enum:
-          - charge
-          - refund
-          - payout
-      - name: provider
-        in: query
-        schema:
-          type: string
-      - name: search
-        in: query
-        schema:
-          type: string
-          maxLength: 200
-      - name: from_date
-        in: query
-        schema:
-          type: string
-          pattern: ^\d{4}-\d{2}-\d{2}$
-      - name: to_date
-        in: query
-        schema:
-          type: string
-          pattern: ^\d{4}-\d{2}-\d{2}$
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          minimum: 0
-          default: 0
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - pending
+              - succeeded
+              - failed
+              - refunded
+              - disputed
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - charge
+              - refund
+              - payout
+        - name: provider
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+            maxLength: 200
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}-\d{2}$
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}-\d{2}$
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         '200':
           description: Paginated transaction list
@@ -689,17 +723,17 @@ paths:
                         type:
                           type: string
                           enum:
-                          - charge
-                          - refund
-                          - payout
+                            - charge
+                            - refund
+                            - payout
                         status:
                           type: string
                           enum:
-                          - pending
-                          - succeeded
-                          - failed
-                          - refunded
-                          - disputed
+                            - pending
+                            - succeeded
+                            - failed
+                            - refunded
+                            - disputed
                         amount_cents:
                           type: integer
                         currency:
@@ -731,37 +765,39 @@ paths:
                   error:
                     type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/disputes:
     get:
       tags:
-      - Disputes
+        - Disputes
       summary: List disputes
       operationId: listDisputes
       parameters:
-      - name: status
-        in: query
-        schema:
-          type: string
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          minimum: 0
-          default: 0
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         '200':
           description: Disputes
@@ -781,26 +817,28 @@ paths:
                   offset:
                     type: integer
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/disputes/{id}:
     get:
       tags:
-      - Disputes
+        - Disputes
       summary: Get a dispute by ID
       operationId: getDisputeById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Dispute
@@ -814,17 +852,19 @@ paths:
                   error:
                     type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/providers:
     get:
       tags:
-      - Providers
+        - Providers
       summary: List configured payment providers
       operationId: listProviders
       responses:
@@ -840,17 +880,19 @@ paths:
                     items:
                       type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/routing:
     get:
       tags:
-      - Routing
+        - Routing
       summary: List routing rules
       operationId: listRoutingRules
       responses:
@@ -866,17 +908,19 @@ paths:
                     items:
                       type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/stats:
     get:
       tags:
-      - Transactions
+        - Transactions
       summary: Payment stats
       description: Aggregate transaction stats for the tenant (volume, count, avg).
       operationId: getPaymentStats
@@ -902,26 +946,28 @@ paths:
                   error:
                     type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/transactions/{id}:
     get:
       tags:
-      - Transactions
+        - Transactions
       summary: Get transaction by ID
       operationId: getTransactionById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Transaction
@@ -939,17 +985,17 @@ paths:
                   type:
                     type: string
                     enum:
-                    - charge
-                    - refund
-                    - payout
+                      - charge
+                      - refund
+                      - payout
                   status:
                     type: string
                     enum:
-                    - pending
-                    - succeeded
-                    - failed
-                    - refunded
-                    - disputed
+                      - pending
+                      - succeeded
+                      - failed
+                      - refunded
+                      - disputed
                   amount_cents:
                     type: integer
                   currency:
@@ -975,41 +1021,43 @@ paths:
                   error:
                     type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /paygate/webhooks/events:
     get:
       tags:
-      - Webhooks
+        - Webhooks
       summary: List webhook delivery events
       operationId: listWebhookEvents
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          minimum: 0
-          default: 0
-      - name: event_type
-        in: query
-        schema:
-          type: string
-      - name: status
-        in: query
-        schema:
-          type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: event_type
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Webhook events
@@ -1018,319 +1066,343 @@ paths:
               schema:
                 type: object
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-paygate
   /postframe/analytics/overview:
     get:
       tags:
-      - Analytics
+        - Analytics
       summary: Get delivery overview
       description: Get aggregate delivery metrics for a date range.
       parameters:
-      - name: from
-        in: query
-        schema:
-          type: string
-          format: date
-      - name: to
-        in: query
-        schema:
-          type: string
-          format: date
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
       responses:
         '200':
           description: Delivery summary metrics
       operationId: getAnalyticsOverview
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/analytics/timeseries:
     get:
       tags:
-      - Analytics
+        - Analytics
       summary: Get time series metrics
       parameters:
-      - name: from
-        in: query
-        schema:
-          type: string
-          format: date
-      - name: to
-        in: query
-        schema:
-          type: string
-          format: date
-      - name: interval
-        in: query
-        schema:
-          type: string
-          enum:
-          - hour
-          - day
-          - week
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: interval
+          in: query
+          schema:
+            type: string
+            enum:
+              - hour
+              - day
+              - week
       responses:
         '200':
           description: Time series data points
       operationId: getAnalyticsTimeseries
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/api-keys:
     get:
       tags:
-      - API Keys
+        - API Keys
       summary: List API keys
       responses:
         '200':
           description: List of API keys (secrets masked)
       operationId: getApiKeys
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/audiences:
     get:
       tags:
-      - Audiences
+        - Audiences
       summary: List audiences
       responses:
         '200':
           description: List of audiences
       operationId: getAudiences
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/audiences/{audienceId}/broadcasts:
     get:
       tags:
-      - Broadcasts
+        - Broadcasts
       summary: List broadcasts for an audience
       parameters:
-      - name: audienceId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: audienceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: List of broadcasts
       operationId: getAudiencesByAudienceIdBroadcasts
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/audiences/{id}:
     get:
       tags:
-      - Audiences
+        - Audiences
       summary: Get audience details
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Audience details
       operationId: getAudiencesById
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/billing/subscription:
     get:
       tags:
-      - Billing
+        - Billing
       summary: Get subscription status
       responses:
         '200':
           description: Current billing subscription
       operationId: getBillingSubscription
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/contacts:
     get:
       tags:
-      - Contacts
+        - Contacts
       summary: List contacts
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 50
-          maximum: 100
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          default: 0
-      - name: search
-        in: query
-        schema:
-          type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: search
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: List of contacts
       operationId: getContacts
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/contacts/{id}:
     get:
       tags:
-      - Contacts
+        - Contacts
       summary: Get a contact
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Contact details
       operationId: getContactsById
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/domains:
     get:
       tags:
-      - Domains
+        - Domains
       summary: List domains
       responses:
         '200':
           description: List of sending domains
       operationId: getDomains
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/domains/{id}:
     get:
       tags:
-      - Domains
+        - Domains
       summary: Get domain details
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Domain details including DNS records and verification status
       operationId: getDomainsById
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/emails:
     get:
       tags:
-      - Emails
+        - Emails
       summary: List emails
       description: List sent emails with pagination, filtering by status, recipient, and date range.
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 50
-          maximum: 100
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          default: 0
-      - name: status
-        in: query
-        schema:
-          type: string
-          enum:
-          - queued
-          - sending
-          - delivered
-          - bounced
-          - failed
-          - complained
-      - name: to
-        in: query
-        schema:
-          type: string
-          format: email
-      - name: from_date
-        in: query
-        schema:
-          type: string
-          format: date-time
-      - name: to_date
-        in: query
-        schema:
-          type: string
-          format: date-time
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - queued
+              - sending
+              - delivered
+              - bounced
+              - failed
+              - complained
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: email
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date-time
       responses:
         '200':
           description: List of emails
@@ -1358,12 +1430,12 @@ paths:
                         status:
                           type: string
                           enum:
-                          - queued
-                          - sending
-                          - delivered
-                          - bounced
-                          - failed
-                          - complained
+                            - queued
+                            - sending
+                            - delivered
+                            - bounced
+                            - failed
+                            - complained
                         provider:
                           type: string
                         created_at:
@@ -1389,26 +1461,28 @@ paths:
                     type: integer
       operationId: getEmails
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/emails/{id}:
     get:
       tags:
-      - Emails
+        - Emails
       summary: Get email details
       description: Get full details of a sent email including delivery status and events.
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Email details
@@ -1431,12 +1505,12 @@ paths:
                   status:
                     type: string
                     enum:
-                    - queued
-                    - sending
-                    - delivered
-                    - bounced
-                    - failed
-                    - complained
+                      - queued
+                      - sending
+                      - delivered
+                      - bounced
+                      - failed
+                      - complained
                   provider:
                     type: string
                   created_at:
@@ -1456,51 +1530,57 @@ paths:
                     nullable: true
       operationId: getEmailsById
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/providers:
     get:
       tags:
-      - Providers
+        - Providers
       summary: List providers
       responses:
         '200':
           description: List of configured email providers
       operationId: getProviders
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/settings:
     get:
       tags:
-      - Settings
+        - Settings
       summary: Get tenant settings
       responses:
         '200':
           description: Current tenant settings
       operationId: getSettings
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/settings/onboarding:
     get:
       tags:
-      - Settings
+        - Settings
       summary: Get onboarding status
       description: Returns setup progress for new tenants.
       responses:
@@ -1532,107 +1612,115 @@ paths:
                     type: boolean
       operationId: getSettingsOnboarding
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/suppressions:
     get:
       tags:
-      - Suppressions
+        - Suppressions
       summary: List suppressions
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 50
-          maximum: 100
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          default: 0
-      - name: type
-        in: query
-        schema:
-          type: string
-          enum:
-          - bounce
-          - complaint
-          - manual
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - bounce
+              - complaint
+              - manual
       responses:
         '200':
           description: List of suppressed addresses
       operationId: getSuppressions
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/templates:
     get:
       tags:
-      - Templates
+        - Templates
       summary: List templates
       parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 50
-          maximum: 100
-      - name: offset
-        in: query
-        schema:
-          type: integer
-          default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
       responses:
         '200':
           description: List of templates
       operationId: getTemplates
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/templates/{id}:
     get:
       tags:
-      - Templates
+        - Templates
       summary: Get a template
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Template details
       operationId: getTemplatesById
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/usage/quota:
     get:
       tags:
-      - Usage
+        - Usage
       summary: Get usage quota
       description: Returns current email usage against plan limits.
       responses:
@@ -1655,29 +1743,33 @@ paths:
                     type: integer
       operationId: getUsageQuota
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
   /postframe/webhooks:
     get:
       tags:
-      - Webhooks
+        - Webhooks
       summary: List webhooks
       responses:
         '200':
           description: List of webhook endpoints
       operationId: getWebhooks
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-rate-limit:
         limit: 100
         window: 1m
         per: authenticated caller
-        source: services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter), applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
+        source: >-
+          services/ee-gateway/src/middleware/rate-limit.middleware.ts:150-153 (standardLimiter),
+          applied via the protected catch-all at services/ee-gateway/src/app.ts:444-458
       x-source-service: ee-postframe
 components:
   securitySchemes:
@@ -1686,4 +1778,4 @@ components:
       scheme: bearer
       bearerFormat: API Key
 security:
-- bearerAuth: []
+  - bearerAuth: []

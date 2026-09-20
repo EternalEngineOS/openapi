@@ -3,8 +3,8 @@
   "info": {
     "title": "EternalEngine Public API",
     "description": "Read-only surface of the EternalEngine platform, covering every service whose data a tenant's own API key can authenticate. Generated from services/ee-postframe/openapi.yaml and services/ee-paygate/openapi.yaml by scripts/growth/gen-public-openapi.mjs — do not hand-edit this file, edit the source specs and regenerate.\n\n## Authentication\nEvery operation below requires a Bearer API key from the service that owns it: PostFrame keys are `pf_live_*`/`pf_test_*`, PayGate keys are `pg_live_*`/`pg_test_*`. Mint one from the EternalEngine app under Developers → API Keys for the relevant app.\n\n## This is a READ-ONLY surface\nOnly GET operations are published here. Every write operation (POST/PUT/PATCH/DELETE) on the underlying service is deliberately excluded — this spec and the MCP server generated from it can only ever read your data.",
-    "version": "1.0.0",
-    "x-generated-at": "2026-09-15T12:08:46.573Z",
+    "version": "1.1.0",
+    "x-generated-at": "2026-09-19T17:51:53.576Z",
     "contact": {
       "name": "EternalEngine Support",
       "email": "support@eternalengineos.io"
