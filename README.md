@@ -73,7 +73,7 @@ See [eternalengineos.io/developers](https://eternalengineos.io/developers) — "
 
 ## Versioning
 
-This repository tracks `info.version` in the spec (currently **`1.0.0`**). A version bump and a
+This repository tracks `info.version` in the spec (currently **`1.1.0`**). A version bump and a
 [`CHANGELOG.md`](./CHANGELOG.md) entry accompany any change to the published operations. Adding a
 new `GET` operation is additive (patch or minor); removing or renaming one, or narrowing its
 response shape, is a breaking (major) change and will be called out explicitly in the changelog.
@@ -81,7 +81,7 @@ response shape, is a breaking (major) change and will be called out explicitly i
 ## Known lint findings
 
 CI runs [`@redocly/cli lint`](https://redocly.com/docs/cli/) against both files on every push
-(see [`redocly.yaml`](./redocly.yaml)). As of `1.0.0`, the spec has pre-existing findings that
+(see [`redocly.yaml`](./redocly.yaml)). As of `1.1.0`, the spec has pre-existing findings that
 are **known and intentionally not fixed here** — fixing them means changing what the underlying
 services' own `openapi.yaml` files say, which is out of this repository's scope (this repo
 mirrors the generated output; it does not own the source specs). The corresponding rules are
